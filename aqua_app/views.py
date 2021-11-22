@@ -31,9 +31,9 @@ class PHView(View):
     def post(self, request, *args, **kwargs):
         if request.META['CONTENT_TYPE'] == 'application/json':
             req = json.loads(request.body)
-            print('ph: ' + str(req['ph']) + '\n')
+            print('ph: ' + str(req['density']) + '\n')
 
-            ph = PH(ph=req['ph'])
+            ph = PH(density=req['density'])
             ph.save()
 
             data = {
