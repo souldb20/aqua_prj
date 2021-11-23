@@ -1,0 +1,13 @@
+.aqua {
+    background: url('/static/images/aqua.jpg') no-repeat center center fixed;
+    //background-color: #266c00;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+    height: 850px;
+}
+
+section {
+
+}
