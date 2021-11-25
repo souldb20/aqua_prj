@@ -1,5 +1,5 @@
 """
-WSGI config for aqua_prj project.
+WSGI config for aqua_app project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 

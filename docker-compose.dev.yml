@@ -18,9 +18,9 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     environment:
-      - POSTGRES_USER=aqua_db_user
-      - POSTGRES_PASSWORD=aqua_db_password
-      - POSTGRES_DB=aqua_dev
+      - POSTGRES_USER=aqua_app_db_user
+      - POSTGRES_PASSWORD=aqua_app_db_password
+      - POSTGRES_DB=aqua_app_dev
 
 volumes:
   postgres_data:
