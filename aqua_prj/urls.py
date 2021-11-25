@@ -23,7 +23,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('aqua_app/', include('aqua_app.urls')),
+    path('', include('aqua_app.urls')),
 ]
 
 
