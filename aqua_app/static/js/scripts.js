@@ -33,53 +33,54 @@ async.onreadystatechange = function(event) {
         });
             }
         };
-async.open('GET', 'ph/', true);
-async.send();
+    async.open('GET', 'ph/', true);
+    async.send();
 
-// 아두이노 서버로 요청 보내기(LED 불 켜기)
-window.onload = function() {
-    var btnLed = document.getElementById('btn-led');
-    btnLed.addEventListener('click', function() {
-        var state = this.dataset.state;
+    // 아두이노 서버로 요청 보내기(LED 불 켜기)
+    window.onload = function() {
+        var btnPump = document.getElementById('btn-pump');
+        btnPump.addEventListener('click', function() {
+            var state = this.dataset.state;
 
-        var request = new XMLHttpRequest();
-        request.onreadystatechange = function(event) {
-            if (request.readyState == 4 && request.status == 200) {
-                var response = JSON.parse(request.responseText);
-                if (response.message == 'success') {
-                    if (response.type == 'LED'
-                        && response.action_result == 'on') {
-                        btnLed.setAttribute("data-state", "1");
-                        btnLed.innerHTML = "펌프 중단";
-                    }
-                    else if (response.type == 'LED'
-                        && response.action_result == 'off') {
-                        btnLed.setAttribute("data-state", "0");
-                        btnLed.innerHTML = "펌프 작동";
+            var request = new XMLHttpRequest();
+            request.onreadystatechange = function(event) {
+                if (request.readyState == 4 && request.status == 200) {
+                    var response = JSON.parse(request.responseText);
+                    if (response.message == 'success') {
+                        if (response.type == 'LED'
+                            && response.action == 'on') {
+                            btnPump.setAttribute("data-state", "1");
+                            btnPump.innerHTML = "펌프 중단";
+                        }
+                        else if (response.type == 'LED'
+                            && response.action == 'off') {
+                            btnPump.setAttribute("data-state", "0");
+                            btnPump.innerHTML = "펌프 작동";
+                        }
                     }
                 }
+            };
+
+            request.open('POST', 'http://192.168.0.139/', true);
+
+            var body;
+            if (state == 0) {
+                body = {
+                    "type": "LED",
+                    "action": "on"
+                };
             }
-        };
+            else if (state == 1) {
+                body = {
+                    "type": "LED",
+                    "action": "off"
+                };
+            }
+            request.send(JSON.stringify(body));
+        });
 
-        request.open('POST', 'http://192.168.0.144/', true);
+    };
 
-        var body;
-        if (state == 0) {
-            body = {
-                "type": "LED",
-                "action": "on"
-            };
-        }
-        else if (state == 1) {
-            body = {
-                "type": "LED",
-                "action": "off"
-            };
-        }
-        request.send(JSON.stringify(body));
-    });
-
-};
 
  window.addEventListener('DOMContentLoaded', event => {
     let navbar_menus = document.getElementById('navbarSupportedContent').getElementsByClassName('nav-item');
