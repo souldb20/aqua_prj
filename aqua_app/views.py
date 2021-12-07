@@ -16,15 +16,20 @@ class PHView(View):
 
     # GET 요청을 처리하기 위해서 get 함수를 재정의
     def get(self, request, *args, **kwargs):
-
         # DHT.objects.all()의 결과는 QuerySet 타입이다.
         # 아래 코드는 QuerySet 타입을 json 타입으로 변경하고
         # json 객체를 직렬화 한 것이다.
+        # phs = serializers.serialize("json", PH.objects.all())
+        # print(phs)
+        # return JsonResponse(phs, # 직렬화한 json 객체
+        #                     safe=False, # 첫번째 파라미터의 타입이 딕셔너리가 아닐경우
+        #                     json_dumps_params={'ensure_ascii': False}, # 한글지원
+        #                     status=200)
         phs = serializers.serialize("json", PH.objects.all())
         print(phs)
-        return JsonResponse(phs, # 직렬화한 json 객체
-                            safe=False, # 첫번째 파라미터의 타입이 딕셔너리가 아닐경우
-                            json_dumps_params={'ensure_ascii': False}, # 한글지원
+        return JsonResponse(phs,  # 직렬화한 json 객체
+                            safe=False,  # 첫번째 파라미터의 타입이 딕셔너리가 아닐경우
+                            json_dumps_params={'ensure_ascii': False},  # 한글지원
                             status=200)
 
     # POST 요청을 처리하기 위해서 post 함수를 재정의
@@ -45,6 +50,16 @@ class PHView(View):
             'message': 'failed'
         }
         return JsonResponse(data, status=404)
+
+
+# class daysearch_VIEW(View):
+#     def get(self, request):
+#         form_date = request.POST['formdate']
+#         phs = serializers.serialize("json", PH.objects.all())
+#         return JsonResponse(phs,  # 직렬화한 json 객체
+#                             safe=False,  # 첫번째 파라미터의 타입이 딕셔너리가 아닐경우
+#                             json_dumps_params={'ensure_ascii': False},  # 한글지원
+#                             status=200)
 
 
 def aqua(request):

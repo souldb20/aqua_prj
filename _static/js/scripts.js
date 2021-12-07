@@ -90,10 +90,10 @@ window.onload = function() {
       navbar_menu.addEventListener('mouseout', function(event) {
         navbar_menu.classList.remove('active');
       });
-//      navbar_menu.addEventListener('click', function(event) {
-//        event.preventDefault();
-//        navbar_menu.classList.remove('active');
-//      });
+      navbar_menu.addEventListener('click', function(event) {
+        event.preventDefault();
+        navbar_menu.classList.remove('active');
+      });
     }
 
 
