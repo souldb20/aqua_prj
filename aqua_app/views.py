@@ -20,7 +20,36 @@ class PHView(View):
         # DHT.objects.all()의 결과는 QuerySet 타입이다.
         # 아래 코드는 QuerySet 타입을 json 타입으로 변경하고
         # json 객체를 직렬화 한 것이다.
-        phs = serializers.serialize("json", PH.objects.all())
+
+        # request.GET은 사전 객체
+
+        # year = int(request.GET.get('year'))
+        # month = int(request.GET.get('month'))
+        # day = int(request.GET.get('day'))
+        #
+        # print('*********************************************************************************')
+        # print(type(year))
+        #
+        # phs = serializers.serialize("json", PH.objects.filter(
+        #     created_at__date__range=(
+        #         datetime.date(year, month, day),
+        #         datetime.date(year, month, day),
+        #     )
+        # ))
+
+        ymd = str(request.GET.get('ymd'))
+
+        print('*********************************************************************************')
+        print(type(ymd))
+        print(ymd)
+
+        phs = serializers.serialize("json", PH.objects.filter(
+            created_at__date__range=(
+                ymd,
+                ymd,
+            )
+        ))
+
         print(phs)
         return JsonResponse(phs, # 직렬화한 json 객체
                             safe=False, # 첫번째 파라미터의 타입이 딕셔너리가 아닐경우
