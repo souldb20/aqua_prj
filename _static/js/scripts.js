@@ -35,9 +35,19 @@ function input(){
         }
      };
 
-    const dday = document.querySelector("#input_date").value;
-    const ymd = dday;
+    let ymd = document.querySelector("#input_date").value;
+
 //    const ymd = dday.replace(/-/g, "/");
+
+    if(!ymd){
+        var today = new Date();
+
+        var year = today.getFullYear();
+        var month = ('0' + (today.getMonth() + 1)).slice(-2);
+        var day = ('0' + today.getDate()).slice(-2);
+
+        ymd = year + '-' + month  + '-' + day;
+    }
 
     url = "ph/?ymd=" + ymd;
 
@@ -81,7 +91,7 @@ window.onload = function() {
             }
         };
 
-        request.open('POST', 'http://192.168.0.139/', true);
+        request.open('POST', 'http://192.168.0.144/', true);
 
         var body;
         if (state == 0) {
@@ -141,10 +151,19 @@ function getPH(){
         }
      };
 
-    const dday = document.querySelector("#input_date").value;
-    const ymd = dday;
-//    const ymd = dday.replace(/-/g, "/");
+    let ymd = document.querySelector("#input_date").value;
 
+//    const ymd = dday.replace(/-/g, "/");
+    if(!ymd){
+        var today = new Date();
+
+        var year = today.getFullYear();
+        var month = ('0' + (today.getMonth() + 1)).slice(-2);
+        var day = ('0' + today.getDate()).slice(-2);
+
+        ymd = year + '-' + month  + '-' + day;
+    }
+    
     url = "ph/?ymd=" + ymd;
 
 //    const dday_arr = dday.split("-");
@@ -170,7 +189,7 @@ function postPump(density){
         btnPump.setAttribute("data-state", "1");
         btnPump.innerHTML = "펌프 중단";
          // 서버가 요청받을 주소를 작성
-        request.open('POST', 'http://192.168.0.139/', true);
+        request.open('POST', 'http://192.168.0.144/', true);
         // body 변수 내용을 담아 서버로 요청보냄
         body = {
             "type": "LED",
@@ -180,7 +199,7 @@ function postPump(density){
     }
 }
 
-let timerID = setInterval(getPH, 10000);
+let timerID = setInterval(getPH, 60000);
 
 function stopTimerID(timerID) {
     clearInterval(timerID);
